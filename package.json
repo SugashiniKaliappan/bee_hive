@@ -1,0 +1,19 @@
+{
+  "name": "bee_hive",
+  "version": "1.0.0",
+  "description": "Health Care System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SugashiniKaliappan/bee_hive.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SugashiniKaliappan/bee_hive/issues"
+  },
+  "homepage": "https://github.com/SugashiniKaliappan/bee_hive#readme"
+}
