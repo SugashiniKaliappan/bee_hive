@@ -1,0 +1,23 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+model staffDetails  {
+  id        String    @id @default(uuid()) @map("_id")
+  firstName String
+  lastName  String
+  birthDate DateTime?
+  gender    String?
+  email     String?   @unique
+  address    String? 
+  phone     String?
+  password  String
+  username  String
+  role      String 
+  joinedAt  DateTime  @default(now())
+}
