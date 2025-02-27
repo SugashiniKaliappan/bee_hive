@@ -1,5 +1,4 @@
-import { verifyToken } from "./auth.js"; //NOTE: remember to include the path including .js
-
+import { verifyToken } from "./auth.js"; 
 export const setupAuth = (app, routes) => {
     routes.forEach(r => {
         if (r.auth) {
