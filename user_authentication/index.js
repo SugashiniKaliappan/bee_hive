@@ -12,7 +12,7 @@ import cors from "cors";
 
 dotenv.config();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 const app = express();
 
 logger(app);
@@ -20,20 +20,20 @@ setupAuth(app, ROUTES);
 proxies(app, ROUTES);
 
 
-app.use(express.urlencoded({ extended: true }));// parse_url_encoded_request_bodies
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-// define_root_route
-app.use("/api/v1/auth", authentication);// setup_authentication_route
+
+app.use("/api/v1/auth", authentication);
 
 
 app.get("/", (req, res) => {
-  res.send("Health care Module!");
+  res.send("Hello World!");
 });
-// start_server_and_listen_on_defined_por
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 })
 
 
-export default app;// export_express_application_instance
+export default app;
