@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
- 
+
+//function_to_connect_testdb
 const connectToTestDatabase = async () => {
 
   await mongoose.connect(testDatabaseURL, {
@@ -11,7 +12,9 @@ const connectToTestDatabase = async () => {
   });
 
 };
- 
+
+
+//function_to_close_connection_testdb
 const closeTestDatabaseConnection = async () => {
 
   await mongoose.connection.dropDatabase();

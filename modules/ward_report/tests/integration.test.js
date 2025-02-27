@@ -1,6 +1,8 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../app'); 
+
+// integration_tests_for_ward_controller
 describe('Ward Controller - Integration Tests', () => {
   
   const sampleWard = {
@@ -11,7 +13,7 @@ describe('Ward Controller - Integration Tests', () => {
     doctors: [],
     patients: [],
   };
- 
+ // testing_post_request_to_create_new_ward_using_sampleWard
   describe('POST /wards', () => {
     it('should create a new ward successfully', async () => {
       const response = await request(app)

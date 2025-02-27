@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+//Connecting_mongoDB
 const connectToDbFunc = async () => {
     console.log("Database connection is in progress...");
     try {
@@ -11,4 +12,5 @@ const connectToDbFunc = async () => {
     }
 }
 
+//exporting_db_function
 module.exports = connectToDbFunc;

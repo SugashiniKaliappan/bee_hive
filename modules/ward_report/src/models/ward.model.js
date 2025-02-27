@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//schema_for_wards
 const wardSchema = new mongoose.Schema(
   {
     wardNumber: {
