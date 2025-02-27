@@ -4,7 +4,6 @@ import { ROUTES } from "./routes/routes.js";
 import { logger } from "./utils/logging.js";
 import { proxies } from "./utils/proxy.js";
 import { setupAuth } from "./middleware/setupAuth.js";
-// import authentication from "./routes/authentication.js";
 import authentication from "./routes/authentication.js";
 
 
@@ -27,12 +26,6 @@ app.use(cors());
 
 app.use("/api/v1/auth", authentication);
 
-//forward the authorization header to the microservices
-//As per @Emmanuel's suggestion comment
-// app.use((req, res, next) => {
-//   req.headers['Authorization'] = req.headers('authorization');
-//   next();
-// });
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
