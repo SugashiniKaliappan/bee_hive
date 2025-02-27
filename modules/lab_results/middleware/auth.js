@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+
+//function to verify token
 export const verifyToken = (req, res, next) => {
   let token = req.header("Authorization");
   

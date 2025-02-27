@@ -2,6 +2,7 @@ import mongoose from "../utils/db.js";
 
 const Schema = mongoose.Schema;
 
+//defining schema for lab results
 const labResultSchema = new Schema({
   labResultId: {
     type: String,
@@ -29,6 +30,7 @@ const labResultSchema = new Schema({
   },
 });
 
+//schema for patient treatment
 const patientTreatmentSchema = new Schema({
   diagnosisId: {
     type: String,
@@ -60,6 +62,7 @@ const patientTreatmentSchema = new Schema({
   },
 });
 
+//schema for daily treatment records
 const dailyTreatmentSchema = new Schema({
   dailyTreatmentId: {
     type: String,

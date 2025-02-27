@@ -1,5 +1,6 @@
 import { Lab } from "../model/schema.js";
 
+// function to record lab results
 export const recordLabResult = async (req, res) => {
   const { patientId, result, diagnosticMachine } = req.body;
 
@@ -27,6 +28,7 @@ export const recordLabResult = async (req, res) => {
   }
 };
 
+//function to get lab results
 export const getLabResult = async (req, res) => {
   const patientId = req.params.id;
 
@@ -38,6 +40,7 @@ export const getLabResult = async (req, res) => {
     const labResult = await Lab.find({ patientId: patientId });
     res.status(200).json(labResult);
   } catch (error) {
+    //handling errors and send appropriate response
     res.status(404).json({ message: error.message });
   }
 };

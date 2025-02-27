@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 
 const db = process.env.DATABASE_URL_DEV;
 
+//connecting to mongodb database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Schema = mongoose.Schema;
@@ -13,6 +14,8 @@ const Schema = mongoose.Schema;
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJmNTkzYjYyLTc4ZmUtNDFjOS1hZTQyLTVmMjBkYzk5NjUyNyIsInJvbGUiOiJEb2N0b3IiLCJpYXQiOjE3MDkyOTYyNjYsImV4cCI6MTcxMTg4ODI2Nn0.ASGFdD1vDtuPjz1QJHfDYi8Nwd55-HD8_LC1IWU-aEY";
 
+
+//defining the schema for lab results
 const labResultSchema = new Schema({
   labResultId: {
     type: String,
@@ -40,6 +43,7 @@ const labResultSchema = new Schema({
   },
 });
 
+//defining the schema for patient treatment
 const patientTreatmentSchema = new Schema({
   diagnosisId: {
     type: String,
@@ -71,6 +75,7 @@ const patientTreatmentSchema = new Schema({
   },
 });
 
+//defining the schema for daily treatment
 const dailyTreatmentSchema = new Schema({
   dailyTreatmentId: {
     type: String,
@@ -102,6 +107,7 @@ const dailyTreatmentSchema = new Schema({
   },
 });
 
+//creating mongoose models for testing
 const Lab = mongoose.model("LabResultTest", labResultSchema);
 const Treatment = mongoose.model(
   "PatientTreatmentTest",
@@ -122,7 +128,7 @@ describe("DB Connection", () => {
   });
 });
 
-
+//test to clear the patient treatment collection
 describe("PatientTreatment", () => {
   it("it should clear the collection", async () => {
     const result = await Treatment.deleteMany({});
@@ -130,6 +136,7 @@ describe("PatientTreatment", () => {
   });
 });
 
+//test to create a new treatment
 describe("Treatment", () => {
   let diagnosisId;
 
@@ -155,6 +162,7 @@ describe("Treatment", () => {
     });
   });
 
+ //test to get treatment by id
   describe("GET /api/v1/labtreatment/entry/treatment/:id", () => {
     it("it should return all treatments", (done) => {
       supertest(server)
@@ -167,6 +175,7 @@ describe("Treatment", () => {
     });
   });
 
+ //test to update a treatment by id  
   describe("PATCH /api/v1/labtreatment/entry/treatment/:id", () => {
     it("it should update a treatment", (done) => {
       const treatment = {

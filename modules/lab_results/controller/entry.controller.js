@@ -1,10 +1,12 @@
 import { Treatment, DailyTreatment } from "../model/schema.js";
 
+//function to record a new treatment for a patient
 export const recordTreatement = async (req, res) => {
   const { patientId, diagnosis, treatment, medicine } = req.body;
   const roles = ["Doctor", "Nurse"];
   const user = req.user;
 
+  //checking if the user has the required role
   if (!roles.includes(user.role)) {
     return res.status(403).json({ message: "Unauthorized!" });
   }
@@ -13,12 +15,14 @@ export const recordTreatement = async (req, res) => {
     return res.status(400).json({ message: "Patient ID is required!" });
   }
 
+  //validating that diagnosis, treatment, and medicine are provided
   if (!diagnosis || !treatment || !medicine) {
     return res
       .status(400)
       .json({ message: "Diagnosis, treatment, and medicine are required!" });
   }
 
+  //creating a new treatment instance
   const newTreatment = new Treatment({
     patientId,
     diagnosis,
@@ -27,6 +31,7 @@ export const recordTreatement = async (req, res) => {
   });
 
   try {
+    //saving a new treatment to the database
     const treatment = await newTreatment.save();
     res.status(201).json(treatment);
   } catch (error) {
@@ -34,20 +39,24 @@ export const recordTreatement = async (req, res) => {
   }
 };
 
+//function to updating an existing treatment
 export const updateTreatment = async (req, res) => {
   const diagnosisId = req.params.id;
   const { treatment, medicine } = req.body;
   const roles = ["Doctor", "Nurse"];
   const user = req.user;
 
+  //checking if the user has the required role
   if (!roles.includes(user.role)) {
     return res.status(403).json({ message: "Unauthorized!" });
   }
 
+  //validating that diagnosisId is provided
   if (!diagnosisId) {
     return res.status(400).json({ message: "Diagnosis ID is required!" });
   }
 
+  //validating that at least one of treatment or medicine is provided
   if (!treatment && !medicine) {
     return res
       .status(400)
@@ -55,6 +64,7 @@ export const updateTreatment = async (req, res) => {
   }
 
   try {
+    //updating the treatment in the database
     const updatedTreatment = await Treatment.findOneAndUpdate({
       diagnosisId,
       treatment,
@@ -67,6 +77,7 @@ export const updateTreatment = async (req, res) => {
   }
 };
 
+//function to get treatment details by diagnosis ID
 export const getTreatment = async (req, res) => {
   try {
     const diagnosisId = req.params.id;
@@ -87,6 +98,7 @@ export const getTreatment = async (req, res) => {
   }
 };
 
+//function to record a new diagnosis
 export const recordDiagnosis = async (req, res) => {
   const { diagnosisId, diagnosis } = req.body;
   const roles = ["Doctor"];
@@ -105,7 +117,6 @@ export const recordDiagnosis = async (req, res) => {
   }
 
   try {
-    
     const updatedDiagnosis = await Treatment.findOneAndUpdate({
       diagnosisId,
       diagnosis,
@@ -116,6 +127,7 @@ export const recordDiagnosis = async (req, res) => {
   }
 };
 
+//function to get diagnosis details by diagnosis ID
 export const getDiagnosis = async (req, res) => {
   try {
     const diagnosisId = req.params.id;
@@ -135,6 +147,7 @@ export const getDiagnosis = async (req, res) => {
   }
 };
 
+//function to record daily treatment details
 export const recordDailyTreatment = async (req, res) => {
   const { diagnosisId, intake, output, progress } = req.body;
   const roles = ["Doctor", "Nurse"];
@@ -148,12 +161,14 @@ export const recordDailyTreatment = async (req, res) => {
     return res.status(400).json({ message: "Diagnosis ID is required!" });
   }
 
+  //validating that at least one of intake, output, or progress is provided
   if (!intake && !output && !progress) {
     return res.status(400).json({
       message: "At least one of intake, output, or progress is required!",
     });
   }
 
+  //creating a new daily treatment instance
   const newDailyTreatment = new DailyTreatment({
     diagnosisId,
     intake,
@@ -169,14 +184,18 @@ export const recordDailyTreatment = async (req, res) => {
   }
 };
 
+// function to get daily treatment details by diagnosis ID
 export const getDailyTreatment = async (req, res) => {
   try {
     const diagnosisId = req.params.id;
+    // validate that diagnosisId is provided
     if (!diagnosisId) {
       return res.status(400).json({ message: "Diagnosis ID is required!" });
     }
 
+    // find daily treatment by diagnosisId
     const dailyTreatment = await DailyTreatment.find({ diagnosisId });
+    // check if daily treatment exists
     if (!dailyTreatment) {
       return res.status(404).json({ message: "Daily treatment not found!" });
     }
@@ -187,6 +206,7 @@ export const getDailyTreatment = async (req, res) => {
   }
 };
 
+//function to sign off treatment
 export const signOffTreatment = async (req, res) => {
   const { diagnosisId, signedOff } = req.body;
   try {
