@@ -32,3 +32,17 @@ The following team members are collaborating as part of this coursework:
   - Each department has 4 wards e.g., Surgery Department has Surgical A, Surgical B, Surgical C, and Surgical D. There are two special wards for critical patients i.e., Cardiology Care Unit (CCU) and Intensive Care Units (ICU).
   - Patients that require monitoring, care and specialized treatment are admitted to the above wards through OPD or A&E.
 
+# Experimental Setup
+
+| Technology                      |  Tools Used        | 
+|-----------------------------|-----------------------|
+| IDE  | Visual Studio(VSCode),Anaconda3      | 
+| Database  | MongoDB      | 
+| API Testing  | Postman      | 
+| Agile  | JIRA      | 
+| Documentation | Confluence      | 
+| Language    | NodeJS       | 
+| Code Maintenance         | Github       | 
+| Repository Name           | bee_hive      | 
+| Repo ink         | https://github.com/SugashiniKaliappan/bee_hive     |
+
