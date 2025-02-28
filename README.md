@@ -39,8 +39,8 @@ The following team members are collaborating as part of this coursework:
 | IDE  | Visual Studio(VSCode),Anaconda3      | 
 | Database  | MongoDB      | 
 | API Testing  | Postman      | 
-| Agile  | JIRA      | 
-| Documentation | Confluence      | 
+| Agile  | JIRA  https://sugashinikaliappan.atlassian.net/jira/software/projects/BHW/boards/3/backlog    | 
+| Documentation | Confluence https://sugashinikaliappan.atlassian.net/wiki/spaces/PP/pages/98543/Bee+Hive+-+Project+plan     | 
 | Language    | NodeJS       | 
 | Code Maintenance         | Github       | 
 | Repository Name           | bee_hive      | 
