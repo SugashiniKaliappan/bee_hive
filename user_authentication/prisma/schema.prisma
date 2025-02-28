@@ -11,13 +11,12 @@ model staffDetails  {
   id        String    @id @default(uuid()) @map("_id")
   firstName String
   lastName  String
-  birthDate DateTime?
-  gender    String?
-  email     String?   @unique
+  username  String
   address    String? 
   phone     String?
   password  String
-  username  String
   role      String 
+  gender    String?
+  email     String?   @unique
   joinedAt  DateTime  @default(now())
 }
