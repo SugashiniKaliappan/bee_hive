@@ -7,7 +7,7 @@ import labRoutes from './routes/lab.routes.js';
 
 
 //defining the port
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 5003;
 const app = express();
 
 //middleware to parse json data with a limit of 30mb

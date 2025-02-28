@@ -8,11 +8,6 @@ import dotenv from "dotenv";
 dotenv.config();
 const prisma = new PrismaClient(); // create_a_new_prisma_client_instance
 
-/**
- * @desc register_a_new_hospital_staff_member
- * @route post /register
- * @acaccess public
- */
 
 export const register = async (req, res) => {
   const userData = req.body;
@@ -67,11 +62,6 @@ export const register = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-/**
- * @desc staff_login
- * @route post /login
- * @access public
- */
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -87,11 +77,7 @@ export const login = async (req, res) => {
         .status(400)
         .json({ error: "Staff does not exist" });
     }
-    /**
- * @desc change_staff_password
- * @route post /change-password
- * @access private_(requires_authentication)
- */
+ 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
