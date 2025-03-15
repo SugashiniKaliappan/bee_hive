@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+- name: Start MongoDB
+  run: sudo systemctl start mongodb
+
 jobs:
   build:
     runs-on: ubuntu-latest
