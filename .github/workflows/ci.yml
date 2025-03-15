@@ -22,11 +22,14 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd user_authentication
+          npm ci
 
-      - name: Run tests
-        run: npm test
+      - name: Run Tests
+        run: |
+          cd user_authentication
+          npm test
 
       - name: Build Docker image
         run: docker build -t bee_hive .
-
