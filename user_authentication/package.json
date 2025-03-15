@@ -4,7 +4,8 @@
   "description": "API Gateway",
   "main": "index.js",
   "scripts": {
-    "start": "npx prisma generate && node index.js"
+    "start": "npx prisma generate && node index.js",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -21,8 +22,8 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "chai": "^5.1.0",
-    "mocha": "^10.3.0",
+    "chai": "^5.2.0",
+    "mocha": "^10.8.2",
     "nodemon": "^2.0.22",
     "prisma": "^6.4.1",
     "supertest": "^6.3.4"
