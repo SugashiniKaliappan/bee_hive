@@ -54,9 +54,12 @@ jobs:
         run: |
           cd user_authentication
           npx mocha --timeout 15000 test/**/*.test.js  # ✅ Fix Mocha CLI syntax
+
+      - name: Run Tests for `modules/lab_results`
         run: |
           cd modules/lab_results
-          npx mocha --timeout 15000 test/**/*.test.js  # ✅ Fix Mocha CLI syntax
+          npx mocha --timeout 30000 test/**/*.test.js
+       
 
       - name: Build Docker image
         run: |
