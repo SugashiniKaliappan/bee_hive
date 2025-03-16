@@ -18,8 +18,8 @@ before(async function () {
 
 after(async () => {
     await prisma.$disconnect();
-    if (server) {
-        server.close();
+    if (server && server.listening) {
+        server.close(() => console.log("Server closed after tests ✅"));
     }
 });
 

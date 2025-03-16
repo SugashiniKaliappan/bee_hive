@@ -1,12 +1,9 @@
-
-
 import express from "express";
 import { ROUTES } from "./routes/routes.js";
 import { logger } from "./utils/logging.js";
 import { proxies } from "./utils/proxy.js";
 import { setupAuth } from "./middleware/setupAuth.js";
 import authentication from "./routes/authentication.js";
-
 import dotenv from "dotenv";
 import cors from "cors";
 
@@ -29,7 +26,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// Prevent multiple server instances in test mode
 let server;
 if (process.env.NODE_ENV !== "test") {
   server = app.listen(port, () => {
@@ -37,6 +33,4 @@ if (process.env.NODE_ENV !== "test") {
   });
 }
 
-// ✅ Export app & server properly
 export { app, server };
-
