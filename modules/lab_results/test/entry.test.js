@@ -206,3 +206,9 @@ describe("Treatment", () => {
     });
   });
 });
+
+// ✅ Close database connection after tests complete
+after(async function () {
+  await mongoose.connection.close();
+  console.log("✅ Database Connection Closed");
+});
