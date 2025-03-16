@@ -44,7 +44,7 @@ jobs:
         run: |
           sudo fuser -k 5003/tcp || true
 
-      - name: Install dependencies
+      - name: Install dependencies for `user_authentication`
         run: |
           cd user_authentication
           npm ci
@@ -53,6 +53,11 @@ jobs:
         run: |
           cd modules/lab_results
           npm ci
+      
+      - name: Install dependencies for `modules/ward_report`
+        run: |
+          cd modules/ward_report
+          npm ci
 
 
       - name: Generate Prisma Client
@@ -60,7 +65,7 @@ jobs:
           cd user_authentication
           npx prisma generate
 
-      - name: Run Tests
+      - name: Run Tests for user_authentication
         run: |
           cd user_authentication
           npx mocha --timeout 15000 test/**/*.test.js  # ✅ Fix Mocha CLI syntax
@@ -70,6 +75,10 @@ jobs:
           cd modules/lab_results
           npx mocha --timeout 30000 --exit --bail test/**/*.test.js
        
+      - name: Run Tests for `modules/ward_reportt`
+        run: |
+          cd modules/ward_report
+          npx mocha --timeout 30000 --exit --bail tests/**/*.test.js
 
       - name: Build Docker image
         run: |

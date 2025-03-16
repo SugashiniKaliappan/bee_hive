@@ -13,7 +13,7 @@ RUN npm install
 # Copy the rest of the application to the working directory
 COPY . .
 
-# Make port 3000 available to the outside of the Docker container
+# Make port 5000 available to the outside of the Docker container
 EXPOSE 5001
 
 # Run the application when the Docker container launches
