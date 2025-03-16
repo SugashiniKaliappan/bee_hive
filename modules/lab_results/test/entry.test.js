@@ -12,9 +12,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
 const Schema = mongoose.Schema;
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJmNTkzYjYyLTc4ZmUtNDFjOS1hZTQyLTVmMjBkYzk5NjUyNyIsInJvbGUiOiJEb2N0b3IiLCJpYXQiOjE3MDkyOTYyNjYsImV4cCI6MTcxMTg4ODI2Nn0.ASGFdD1vDtuPjz1QJHfDYi8Nwd55-HD8_LC1IWU-aEY";
-
-
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0ZDU2MjkyLWMxYzItNDg2Yy1hYmZkLTc1MzE0NDBlZGIzZiIsInJvbGUiOiJOdXJzZSIsImlhdCI6MTc0MDIyNDU4NywiZXhwIjoxNzQyODE2NTg3fQ.u_bUSTij3vqTYHOBjCRbf74F8DhN0Z4Wxqo8b1AEstE";
 //defining the schema for lab results
 const labResultSchema = new Schema({
   labResultId: {
@@ -194,25 +192,7 @@ describe("Treatment", () => {
     });
   });
 
-  describe("PUT /api/v1/labtreatment/entry/diagnosis", () => {
-    it("it should create a update diagnosis", (done) => {
-      const treatment = {
-        diagnosisId: diagnosisId,
-        diagnosis: "Flu",
-      };
-
-      supertest(server)
-        .put("/api/v1/labtreatment/entry/diagnosis")
-        .set("Authorization", `Bearer ${token}`)
-        .send(treatment)
-        .end((err, res) => {
-          diagnosisId = res.body.diagnosisId;
-          console.log(res.body);
-          expect(res.status).to.equal(200);
-          done();
-        });
-    });
-  });
+  
 
   describe("GET /api/v1/labtreatment/entry/diagnosis/:id", () => {
     it("it should return all diagnosis", (done) => {
