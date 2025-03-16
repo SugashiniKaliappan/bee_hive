@@ -27,8 +27,9 @@ jobs:
         with:
           node-version: 18
 
-      - name: Wait for MongoDB to Start
-        run: sleep 10  # ✅ Ensures MongoDB is fully initialized
+      - name: Free Up Port 5000 (If Used)
+        run: |
+          sudo fuser -k 5000/tcp || true
 
       - name: Install dependencies
         run: |
