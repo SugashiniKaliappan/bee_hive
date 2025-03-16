@@ -30,6 +30,10 @@ jobs:
       - name: Wait for MongoDB to Start
         run: sleep 10  # ✅ Ensures MongoDB has enough time to start
 
+      - name: Free Up Port 5000 (If Used)
+        run: |
+          sudo fuser -k 5000/tcp || true
+
       - name: Install dependencies
         run: |
           cd user_authentication
