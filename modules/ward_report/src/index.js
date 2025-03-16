@@ -4,6 +4,7 @@ const router = require('./routes/ward.route');
 require('dotenv').config();
 
 const app = express();
+module.exports = app;
 app.use(express.json());
 
 const PORT = process.env.PORT || 5001;

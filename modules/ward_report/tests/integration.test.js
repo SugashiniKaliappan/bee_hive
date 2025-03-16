@@ -1,6 +1,6 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../app'); 
+const app = require('../src/index.js'); 
 
 // integration_tests_for_ward_controller
 describe('Ward Controller - Integration Tests', () => {
