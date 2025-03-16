@@ -54,6 +54,11 @@ jobs:
           cd modules/lab_results
           npm ci
 
+      - name: Install dependencies for `modules/ward_report`
+        run: |
+          cd modules/ward_report
+          npm ci
+
 
       - name: Generate Prisma Client
         run: |
@@ -69,6 +74,11 @@ jobs:
         run: |
           cd modules/lab_results
           npx mocha --timeout 30000 --exit --bail test/**/*.test.js
+
+      - name: Run Tests for `modules/ward_report`
+        run: |
+          cd modules/ward_report
+          npx mocha --timeout 30000 --exit --bail tests/**/*.test.js
        
 
       - name: Build Docker image
@@ -89,5 +99,15 @@ jobs:
             docker build -t bee_hive_lab_results .
           else
             echo "❌ ERROR: No Dockerfile found in modules/lab_results!"
+            exit 1
+          fi
+      
+      - name: Build Docker image for `modules/ward_report`
+        run: |
+          if [ -f "modules/ward_report/Dockerfile" ]; then
+            cd modules/ward_report
+            docker build -t bee_hive_ward_report .
+          else
+            echo "❌ ERROR: No Dockerfile found in modules/ward_report!"
             exit 1
           fi
