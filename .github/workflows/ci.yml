@@ -27,6 +27,13 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install MongoDB Shell (`mongosh`)
+        run: |
+          wget -qO - https://pgp.mongodb.com/server-6.0.asc | sudo tee /etc/apt/trusted.gpg.d/mongodb-server-6.0.asc
+          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-mongosh
+
       - name: Set Environment Variables
         run: |
           echo "DATABASE_URL=mongodb+srv://devopsbhwuser:devopsbhwuser@cluster0.aj515.mongodb.net/HospitalStaffDetails?retryWrites=true&w=majority&appName=Cluster00" >> $GITHUB_ENV
@@ -38,7 +45,7 @@ jobs:
 
       - name: Initialize MongoDB Replica Set
         run: |
-          mongosh --host localhost --eval "
+          mongosh --host localhost:5000 --eval "
             rs.initiate({
               _id: 'rs0',
               members: [{ _id: 0, host: 'localhost:5000' }]
