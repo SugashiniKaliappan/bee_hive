@@ -17,6 +17,9 @@ jobs:
         image: mongo
         ports:
           - 5000:5000
+        options: >-
+          --replSet rs0
+          --oplogSize 128
 
     steps:
       - name: Checkout code
@@ -36,21 +39,12 @@ jobs:
 
       - name: Set Environment Variables
         run: |
-          echo "DATABASE_URL=mongodb+srv://devopsbhwuser:devopsbhwuser@cluster0.aj515.mongodb.net/HospitalStaffDetails?retryWrites=true&w=majority&appName=Cluster00" >> $GITHUB_ENV
+          echo "DATABASE_URL=mongodb+srv://devopsbhwuser:devopsbhwuser@cluster0.aj515.mongodb.net/HospitalStaffDetails?retryWrites=true&w=majority&appName=Cluster0" >> $GITHUB_ENV
           echo "JWT_SECRET=myabcd123" >> $GITHUB_ENV
           echo "PORT=5000" >> $GITHUB_ENV
 
       - name: Wait for MongoDB to Start
         run: sleep 10 # Allow MongoDB time to initialize
-
-      - name: Initialize MongoDB Replica Set
-        run: |
-          mongosh --host localhost:5000 --eval "
-            rs.initiate({
-              _id: 'rs0',
-              members: [{ _id: 0, host: 'localhost:5000' }]
-            })
-          "
 
       - name: Install dependencies
         run: |
