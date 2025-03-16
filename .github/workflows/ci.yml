@@ -59,7 +59,7 @@ jobs:
           cd modules/ward_report
           npm ci
 
-
+     
       - name: Generate Prisma Client
         run: |
           cd user_authentication
@@ -74,49 +74,24 @@ jobs:
         run: |
           cd modules/lab_results
           npx mocha --timeout 30000 --exit --bail test/**/*.test.js
-       
 
-      - name: Build Docker image
-        run: |
-          if [ -f "user_authentication/Dockerfile" ]; then
-            cd user_authentication
-            docker build -t bee_hive .
-          elif [ -f "Dockerfile" ]; then
-            docker build -t bee_hive .
-          else
-            echo "❌ ERROR: No Dockerfile found!"
-            exit 1
-          fi
-      - name: Build Docker image for `modules/lab_results`
-        run: |
-          if [ -f "modules/lab_results/Dockerfile" ]; then
-            cd modules/lab_results
-            docker build -t bee_hive_lab_results .
-          else
-            echo "❌ ERROR: No Dockerfile found in modules/lab_results!"
-            exit 1
-          fi
       
-      - name: Build Docker image for `modules/ward_report`
+      - name: Generate Version Tag
+        run: echo "VERSION_TAG=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Build Docker Image with Versioning
         run: |
-          if [ -f "modules/ward_report/Dockerfile" ]; then
-            cd modules/ward_report
-            docker build -t bee_hive_ward_report .
-          else
-            echo "❌ ERROR: No Dockerfile found in modules/ward_report!"
-            exit 1
-          fi
+          docker build -t sugashinikaliappan/bee_hive:latest .
+          docker tag sugashinikaliappan/bee_hive:latest sugashinikaliappan/bee_hive:${{ env.VERSION_TAG }}
 
-      - name: Build Docker Image
-        run: docker build -t sugashinikaliappan/bee_hive:latest .
-
-      # ✅ Step 7: Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # ✅ Step 8: Push Docker Image to Docker Hub
-      - name: Push Docker Image
-        run: docker push sugashinikaliappan/bee_hive:latest
+      - name: Push Docker Images to Docker Hub
+        run: |
+          docker push sugashinikaliappan/bee_hive:latest
+          docker push sugashinikaliappan/bee_hive:${{ env.VERSION_TAG }}
+
