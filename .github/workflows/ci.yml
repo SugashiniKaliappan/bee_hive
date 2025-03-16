@@ -27,6 +27,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: Start Docker Service
+        run: |
+          sudo systemctl start docker
+          sudo chmod 666 /var/run/docker.sock
+          docker info
+
       - name: Wait for MongoDB to Start
         run: sleep 10  # ✅ Ensures MongoDB has enough time to start
 
@@ -50,4 +56,13 @@ jobs:
           npx mocha --timeout 15000 test/**/*.test.js  # ✅ Fix Mocha CLI syntax
 
       - name: Build Docker image
-        run: docker build -t bee_hive .
+        run: |
+          if [ -f "user_authentication/Dockerfile" ]; then
+            cd user_authentication
+            docker build -t bee_hive .
+          elif [ -f "Dockerfile" ]; then
+            docker build -t bee_hive .
+          else
+            echo "❌ ERROR: No Dockerfile found!"
+            exit 1
+          fi
