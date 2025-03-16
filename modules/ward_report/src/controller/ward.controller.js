@@ -108,4 +108,23 @@ const wardController = {
   },
 };
 
+
+
+exports.create = async (req, res) => {
+  try {
+    console.log("DEBUG: Received Request Body:", req.body); // ✅ Log incoming request
+
+    const newWard = new Ward(req.body);
+    const savedWard = await newWard.save();
+
+    console.log("DEBUG: Ward Created Successfully:", savedWard); // ✅ Log created ward
+
+    return res.status(201).json(savedWard); // ✅ Ensure 201 is correctly set
+  } catch (err) {
+    console.log("DEBUG: Error Occurred:", err.message); // ✅ Log errors
+    return res.status(400).json({ error: err.message });
+  }
+};
+
+
 module.exports = wardController;

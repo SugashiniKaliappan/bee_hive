@@ -6,12 +6,13 @@ const app = require('../src/index.js');
 describe('Ward Controller - Integration Tests', () => {
   
   const sampleWard = {
-    wardNumber: 1,
-    wardName: 'Sample Ward',
-    totalBeds: 10,
-    availableBeds: 5,
-    doctors: [],
-    patients: [],
+      wardNumber: 78, // ✅ Generate a unique ward number
+      wardName: 'Sample Ward',
+      totalBeds: 10,
+      availableBeds: 5,
+      doctors: [],
+      patients: [],
+    
   };
  // testing_post_request_to_create_new_ward_using_sampleWard
   describe('POST /wards', () => {
