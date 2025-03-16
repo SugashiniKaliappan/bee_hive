@@ -1,0 +1,68 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo
+        ports:
+          - 5000:5000
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Start Docker Service
+        run: |
+          sudo systemctl start docker
+          sudo chmod 666 /var/run/docker.sock
+          docker info
+
+      - name: Wait for MongoDB to Start
+        run: sleep 10  # ✅ Ensures MongoDB has enough time to start
+
+      - name: Free Up Port 5000 (If Used)
+        run: |
+          sudo fuser -k 5000/tcp || true
+
+      - name: Install dependencies
+        run: |
+          cd user_authentication
+          npm ci
+
+      - name: Generate Prisma Client
+        run: |
+          cd user_authentication
+          npx prisma generate
+
+      - name: Run Tests
+        run: |
+          cd user_authentication
+          npx mocha --timeout 15000 test/**/*.test.js  # ✅ Fix Mocha CLI syntax
+
+      - name: Build Docker image
+        run: |
+          if [ -f "user_authentication/Dockerfile" ]; then
+            cd user_authentication
+            docker build -t bee_hive .
+          elif [ -f "Dockerfile" ]; then
+            docker build -t bee_hive .
+          else
+            echo "❌ ERROR: No Dockerfile found!"
+            exit 1
+          fi
