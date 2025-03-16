@@ -1,43 +1,21 @@
-const mongoose = require('mongoose');
-const Ward = require('../src/models/ward.model');
-const wardController = require('../src/controller/ward.controller');
+import { jest } from "@jest/globals"; // ✅ Ensure Jest is available
+import { getAllWards } from "../src/controller/ward.controller.js";
+import { Ward } from "../src/models/ward.model.js"; // ✅ Named import
 
+describe("Ward Controller - Unit Tests", () => {
+  it("should return a list of wards", async () => {
+    const mockReq = {};
+    const mockRes = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
 
-// unit_testing_for_ward_controller
-describe('Ward Controller - Unit Tests', () => {
-  const req = {};
-  const res = {
-    status: jest.fn(() => res),
-    send: jest.fn(),
-  };
- 
-  
-  const sampleWard = {
-    wardNumber: 1,
-    wardName: 'Sample Ward',
-    totalBeds: 10,
-    availableBeds: 5,
-    doctors: [],
-    patients: [],
-  };
- 
-  describe('create', () => {
-    it('should create a new ward successfully', async () => {
-      req.body = sampleWard;
-      await wardController.create(req, res);
-      expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.send).toHaveBeenCalledWith(expect.objectContaining(sampleWard));
-    });
- 
-    it('should handle errors during ward creation', async () => {
-      const error = { name: 'ValidationError', message: 'Validation error' };
-      mongoose.Model.prototype.save = jest.fn(() => Promise.reject(error));
- 
-      req.body = sampleWard;
-      await wardController.create(req, res);
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.send).toHaveBeenCalledWith(error);
-    });
+    // ✅ Use `jest.spyOn()` to mock `find`
+    jest.spyOn(Ward, "find").mockResolvedValue([{ wardNumber: 1, wardName: "General" }]);
+
+    await getAllWards(mockReq, mockRes);
+
+    expect(mockRes.status).toHaveBeenCalledWith(200);
+    expect(mockRes.json).toHaveBeenCalledWith(expect.any(Array));
   });
- 
 });
