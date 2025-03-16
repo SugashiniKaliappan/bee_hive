@@ -27,6 +27,11 @@ jobs:
         with:
           node-version: 18
 
+      - name: Wait for MongoDB to Start
+        run: |
+          sleep 10  # ✅ Ensure MongoDB has enough time to start
+
+
       - name: Free Up Port 5000 (If Used)
         run: |
           sudo fuser -k 5000/tcp || true
@@ -44,7 +49,7 @@ jobs:
       - name: Run Tests
         run: |
           cd user_authentication
-          npm test
+          npm test --timeout 15000  # ✅ Set global timeout for Mocha
 
       - name: Build Docker image
         run: docker build -t bee_hive .

@@ -34,6 +34,7 @@ describe("DB Connection", () => {
 describe("Register", () => {
     describe("POST /api/v1/auth/register", () => {
         it("should return a token", async () => {
+            this.timeout(10000); // ✅ Increase timeout for this test case
             const user = {
                 email: "anna.sak@gmail.com",
                 username: "ank2111",
