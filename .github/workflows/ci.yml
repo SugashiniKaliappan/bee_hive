@@ -18,10 +18,9 @@ jobs:
         ports:
           - 27017:27017
         options: >-
-          --health-cmd "echo 'db.runCommand({ ping: 1 })' | mongosh localhost:27017/test_db --quiet"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --replSet rs0
+          --oplogSize 128
+          --port 27017
 
     steps:
       - name: Checkout code
@@ -34,9 +33,14 @@ jobs:
 
       - name: Set Environment Variables
         run: |
-          echo "DATABASE_URL=mongodb://localhost:27017/test_db" >> $GITHUB_ENV
-          echo "JWT_SECRET=your_secret_key" >> $GITHUB_ENV
+          echo "DATABASE_URL=mongodb+srv://devopsbhwuser:devopsbhwuser@cluster0.aj515.mongodb.net/HospitalStaffDetails?retryWrites=true&w=majority&appName=Cluster" >> $GITHUB_ENV
+          echo "JWT_SECRET=myabcd123" >> $GITHUB_ENV
           echo "PORT=5000" >> $GITHUB_ENV
+
+      - name: Initialize MongoDB Replica Set
+        run: |
+          sleep 5 # Wait for MongoDB to start
+          mongosh --eval "rs.initiate()"
 
       - name: Install dependencies
         run: |
