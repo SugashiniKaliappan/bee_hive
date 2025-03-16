@@ -3,7 +3,10 @@ const connectToDbFunc = require('./config/dbConnect');
 const router = require('./routes/ward.route');
 require('dotenv').config();
 
+import express from 'express';
+
 const app = express();
+
 module.exports = app;
 app.use(express.json());
 

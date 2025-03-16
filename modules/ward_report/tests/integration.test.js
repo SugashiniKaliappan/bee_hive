@@ -1,6 +1,6 @@
 
-import request from 'supertest'; // ✅ Correct syntax for ESM
-import app from '../src/index.js'; // ✅ Use import instead of requireconst request = require('supertest');
+import app from '../src/index.js'; // ✅ Now this will work
+import request from 'supertest';
 const mongoose = require('mongoose');
 
 
