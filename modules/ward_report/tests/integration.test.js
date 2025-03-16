@@ -1,6 +1,8 @@
-const request = require('supertest');
+
+import request from 'supertest'; // ✅ Correct syntax for ESM
+import app from '../src/index.js'; // ✅ Use import instead of requireconst request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../src/index.js'); 
+
 
 // integration_tests_for_ward_controller
 describe('Ward Controller - Integration Tests', () => {
