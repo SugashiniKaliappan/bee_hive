@@ -40,10 +40,20 @@ jobs:
         run: |
           sudo fuser -k 5000/tcp || true
 
+      - name: Free Up Port 5003 (If Used)
+        run: |
+          sudo fuser -k 5003/tcp || true
+
       - name: Install dependencies
         run: |
           cd user_authentication
           npm ci
+
+      - name: Install dependencies for `modules/lab_results`
+        run: |
+          cd modules/lab_results
+          npm ci
+
 
       - name: Generate Prisma Client
         run: |
