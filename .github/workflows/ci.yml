@@ -40,10 +40,20 @@ jobs:
         run: |
           sudo fuser -k 5000/tcp || true
 
+      - name: Free Up Port 5003 (If Used)
+        run: |
+          sudo fuser -k 5003/tcp || true
+
       - name: Install dependencies
         run: |
           cd user_authentication
           npm ci
+
+      - name: Install dependencies for `modules/lab_results`
+        run: |
+          cd modules/lab_results
+          npm ci
+
 
       - name: Generate Prisma Client
         run: |
@@ -55,6 +65,12 @@ jobs:
           cd user_authentication
           npx mocha --timeout 15000 test/**/*.test.js  # ✅ Fix Mocha CLI syntax
 
+      - name: Run Tests for `modules/lab_results`
+        run: |
+          cd modules/lab_results
+          npx mocha --timeout 30000 --exit --bail test/**/*.test.js
+       
+
       - name: Build Docker image
         run: |
           if [ -f "user_authentication/Dockerfile" ]; then
@@ -64,5 +80,14 @@ jobs:
             docker build -t bee_hive .
           else
             echo "❌ ERROR: No Dockerfile found!"
+            exit 1
+          fi
+      - name: Build Docker image for `modules/lab_results`
+        run: |
+          if [ -f "modules/lab_results/Dockerfile" ]; then
+            cd modules/lab_results
+            docker build -t bee_hive_lab_results .
+          else
+            echo "❌ ERROR: No Dockerfile found in modules/lab_results!"
             exit 1
           fi

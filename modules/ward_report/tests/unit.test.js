@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Ward = require('../models/ward.model');
-const wardController = require('../controller/ward.controller');
+const Ward = require('../src/models/ward.model');
+const wardController = require('../src/controller/ward.controller');
 
 
 // unit_testing_for_ward_controller
