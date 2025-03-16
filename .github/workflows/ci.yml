@@ -12,15 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mongo:
-        image: mongo
-        ports:
-          - 5000:5000
-        options: >-
-          --replSet rs0
-          --oplogSize 128
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,31 +21,10 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install MongoDB Shell (`mongosh`)
-        run: |
-          wget -qO - https://pgp.mongodb.com/server-6.0.asc | sudo tee /etc/apt/trusted.gpg.d/mongodb-server-6.0.asc
-          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-          sudo apt-get update
-          sudo apt-get install -y mongodb-mongosh
-
-      - name: Set Environment Variables
-        run: |
-          echo "DATABASE_URL=mongodb+srv://devopsbhwuser:devopsbhwuser@cluster0.aj515.mongodb.net/HospitalStaffDetails?retryWrites=true&w=majority&appName=Cluster0" >> $GITHUB_ENV
-          echo "JWT_SECRET=myabcd123" >> $GITHUB_ENV
-          echo "PORT=5000" >> $GITHUB_ENV
-
-      - name: Wait for MongoDB to Start
-        run: sleep 10 # Allow MongoDB time to initialize
-
       - name: Install dependencies
         run: |
           cd user_authentication
           npm ci
-
-      - name: Generate Prisma Client
-        run: |
-          cd user_authentication
-          npx prisma generate
 
       - name: Run Tests
         run: |
