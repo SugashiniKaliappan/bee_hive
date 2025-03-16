@@ -82,3 +82,11 @@ jobs:
             echo "❌ ERROR: No Dockerfile found!"
             exit 1
           fi
+      - name: Build Docker image for `modules/lab_results`
+        run: |
+          if [ -f "modules/lab_results/Dockerfile" ]; then
+            cd modules/lab_results
+            docker build -t bee_hive_lab_results .
+          else
+            echo "❌ ERROR: No Dockerfile found in modules/lab_results!"
+            exit 1
