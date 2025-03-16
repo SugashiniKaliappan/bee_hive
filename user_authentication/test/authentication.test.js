@@ -5,20 +5,17 @@ import supertest from "supertest";
 const prisma = new PrismaClient();
 let app, server;
 
-// ✅ Dynamically Import `app` and `server` for ES Module Support
-before(async () => {
+before(async function () {
+    this.timeout(10000); // ✅ Increase timeout to 10 seconds
     const module = await import("../index.js");
     app = module.app;
     server = module.server;
 
     console.log("DEBUG: Resetting database before tests...");
     await prisma.$connect();
-
-    // ✅ Using `staffDetails` model (MongoDB)
     await prisma.staffDetails.deleteMany();
 });
 
-// ✅ Close Database and Stop Server After Tests
 after(async () => {
     await prisma.$disconnect();
     if (server) {

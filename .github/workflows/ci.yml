@@ -12,6 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mongo:
+        image: mongo
+        ports:
+          - 5000:5000
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -21,10 +27,18 @@ jobs:
         with:
           node-version: 18
 
+      - name: Wait for MongoDB to Start
+        run: sleep 10  # ✅ Ensures MongoDB is fully initialized
+
       - name: Install dependencies
         run: |
           cd user_authentication
           npm ci
+
+      - name: Generate Prisma Client
+        run: |
+          cd user_authentication
+          npx prisma generate
 
       - name: Run Tests
         run: |
