@@ -1,6 +1,7 @@
 require('dotenv').config(); // ✅ Load environment variables from .env
 const mongoose = require('mongoose');
-const { expect } = require('chai');
+import chai from 'chai'; // ✅ Use `import` instead
+const { expect } = chai;
 const sinon = require('sinon');
 const Ward = require('../src/models/ward.model');
 const wardController = require('../src/controller/ward.controller');
