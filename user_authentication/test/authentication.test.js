@@ -1,61 +1,86 @@
 import { PrismaClient } from "@prisma/client";
-
-import { should, use, expect } from "chai";
+import { expect } from "chai";
 import supertest from "supertest";
-import server from "../index.js";
 
 const prisma = new PrismaClient();
+let app, server;
 
-// db connection
+// ✅ Dynamically Import `app` and `server` for ES Module Support
+before(async () => {
+    const module = await import("../index.js");
+    app = module.app;
+    server = module.server;
+
+    console.log("DEBUG: Resetting database before tests...");
+    await prisma.$connect();
+
+    // ✅ Using `staffDetails` model (MongoDB)
+    await prisma.staffDetails.deleteMany();
+});
+
+// ✅ Close Database and Stop Server After Tests
+after(async () => {
+    await prisma.$disconnect();
+    if (server) {
+        server.close();
+    }
+});
+
+// ✅ Database Connection Test
 describe("DB Connection", () => {
-  it("it should return a connection", (done) => {
-    prisma.$connect();
-    done();
-  });
+    it("should connect to the database", async () => {
+        await prisma.$connect();
+    });
 });
 
+// ✅ Register API Test
 describe("Register", () => {
-  describe("POST /api/v1/auth/register", () => {
-    it("it should return a token", async (done) => {
-      const user = {
-        email: "shubhmangill@gmail.com",
-        username: "shubhman77",
-        gender: "Male",
-        password: "sara@77",
-        firstName: "Shubhman",
-        lastName: "Gill",
-        role: "Clerk",
-        phone: "+971504343767",
-      };
+    describe("POST /api/v1/auth/register", () => {
+        it("should return a token", async () => {
+            const user = {
+                email: "anna.sak@gmail.com",
+                username: "ank2111",
+                gender: "Female",
+                password: "2ewq1@20",
+                firstName: "Anna",
+                lastName: "Sak",
+                role: "Clerk",
+                phone: "+971501234567",
+            };
 
-      supertest(server)
-        .post("/api/v1/auth/register")
-        .send(user)
-        .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body).to.have.property("token");
-          done();
+            console.log("DEBUG: Sending Register Payload:", user);
+
+            const res = await supertest(app)
+                .post("/api/v1/auth/register")
+                .send(user);
+
+            console.log("DEBUG: Register Response:", res.body);
+
+            expect(res.status).to.equal(201);
+            expect(res.body).to.have.property("token");
         });
     });
-  });
 });
 
+// ✅ Authentication API Test
 describe("Authentication", () => {
-  describe("POST /api/v1/auth/login", () => {
-    it("it should return a token", (done) => {
-      const user = {
-        username: "shubhman77",
-        password: "sara@77",
-      };
+    describe("POST /api/v1/auth/login", () => {
+        it("should return a token", async () => {
+            const user = {
+                username: "ank2111",
+                password: "2ewq1@20",
+            };
 
-      supertest(server)
-        .post("/api/v1/auth/login")
-        .send(user)
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body).to.have.property("token");
-          done();
+            console.log("DEBUG: Sending Login Payload:", user);
+
+            const res = await supertest(app)
+                .post("/api/v1/auth/login")
+                .send(user);
+
+            console.log("DEBUG: Login Response:", res.body);
+
+            expect(res.status).to.equal(200);
+            expect(res.body).to.have.property("token");
         });
     });
-  });
 });

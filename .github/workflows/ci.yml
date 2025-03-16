@@ -24,6 +24,17 @@ jobs:
         with:
           node-version: 18
 
+      services:
+      mongo:
+        image: mongo
+        ports:
+
+      - name: Set Environment Variables
+        run: |
+          echo "MONGO_URI=mongodb://localhost:27017/test_db" >> $GITHUB_ENV
+          echo "JWT_SECRET=your_secret_key" >> $GITHUB_ENV
+          echo "PORT=5000" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
           cd user_authentication
@@ -36,3 +47,4 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t bee_hive .
+
