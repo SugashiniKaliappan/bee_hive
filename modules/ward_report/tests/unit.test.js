@@ -1,4 +1,4 @@
-import { jest } from "@jest/globals"; // ✅ Ensure Jest is available
+import { jest } from "@jest/globals"; // ✅ Correct way
 import { getAllWards } from "../src/controller/ward.controller.js";
 import { Ward } from "../src/models/ward.model.js"; // ✅ Named import
 

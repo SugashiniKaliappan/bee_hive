@@ -6,15 +6,17 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --forceExit --detectOpenHandles --runInBand"
-},
-"jest": {
+    "test": "NODE_OPTIONS='--experimental-vm-modules' npx jest --forceExit --detectOpenHandles --runInBand"
+  },
+  "jest": {
     "testTimeout": 30000,
     "testEnvironment": "node",
     "transform": {},
-    "moduleFileExtensions": ["js", "json"]
-    
-},
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ]
+  },
   "type": "module",
   "author": "",
   "license": "ISC",

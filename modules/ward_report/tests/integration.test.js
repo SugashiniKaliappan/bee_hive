@@ -3,7 +3,7 @@ import { app } from "../src/index.js";
 
 describe("Ward Controller - Integration Tests", () => {
   const sampleWard = {
-    wardNumber: 156,
+    wardNumber: 2000,
     wardName: "Sample Ward",
     totalBeds: 10,
     availableBeds: 5,
