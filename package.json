@@ -4,7 +4,12 @@
   "description": "Health Care System",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "concurrently \"npm run start-auth\" \"npm run start-lab\" \"npm run start-patient\" \"npm run start-ward\"",
+      "start-auth": "cd user_authentication && npm start",
+      "start-lab": "cd modules/lab_report && npm start",
+      "start-patient": "cd modules/patient_enrollment && npm start",
+      "start-ward": "cd modules/ward_report && npm start"
   },
   "repository": {
     "type": "git",
