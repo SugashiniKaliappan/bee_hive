@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bee-hive
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bee-hive
+  template:
+    metadata:
+      labels:
+        app: bee-hive
+    spec:
+      containers:
+      - name: bee-hive
+        image: sugashinikaliappan/bee_hive:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
