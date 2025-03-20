@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Make port 3000 available to the outside of the Docker container
-EXPOSE 5003
+EXPOSE 6003
 
 # Run the application when the Docker container launches
 CMD [ "node", "index.js" ]

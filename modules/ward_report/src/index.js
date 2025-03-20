@@ -5,7 +5,7 @@ import { router } from "./routes/ward.route.js"; // ✅ Ensure correct import
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 6001;
 
 // Delay database connection
 setTimeout(() => {

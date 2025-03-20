@@ -20,5 +20,5 @@ const patientRoutes = require('./routes/patientRoutes');
 app.use('/api/v1/patient', patientRoutes);
 
 
-app.listen(5002, () => console.log('Patient enrollment microservice -Port  5002'));
+app.listen(6002, () => console.log('Patient enrollment microservice -Port  6002'));
 
