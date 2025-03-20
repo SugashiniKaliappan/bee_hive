@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
       "start": "concurrently \"npm run start-auth\" \"npm run start-lab\" \"npm run start-patient\" \"npm run start-ward\"",
-      "start-auth": "cd user_authentication && npm start",
-      "start-lab": "cd modules/lab_report && npm start",
-      "start-patient": "cd modules/patient_enrollment && npm start",
-      "start-ward": "cd modules/ward_report && npm start"
+      "start-auth": "cd user_authentication/index.js && npm start",
+      "start-lab": "cd modules/lab_results/index.js && npm start",
+      "start-patient": "cd modules/patient_enrolment/server.js && npm start",
+      "start-ward": "cd modules/ward_report/src/index.js && npm start"
   },
   "repository": {
     "type": "git",
