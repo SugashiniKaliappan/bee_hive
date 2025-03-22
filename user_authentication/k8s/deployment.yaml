@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: user-auth
-          image: sugashinikaliappan/user_auth:__IMAGE_TAG__
+          image: sugashinikaliappan/user_auth:latest
           ports:
             - containerPort: 6000
