@@ -18,7 +18,7 @@ RUN npx prisma generate
 
 
 # Make port 5000 available to the outside of the Docker container
-EXPOSE 5000
+EXPOSE 6000
 
 # Run the application when the Docker container launches
 CMD [ "node", "index.js" ]
