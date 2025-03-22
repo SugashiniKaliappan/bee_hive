@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-auth-service
+spec:
+  selector:
+    app: user-auth
+  type: NodePort
+  ports:
+    - port: 6000          # Port exposed within cluster
+      targetPort: 6000    # Port your app listens on
+      nodePort: 61000     # Optional: Port exposed outside the cluster
