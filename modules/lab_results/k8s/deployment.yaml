@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-results
+  labels:
+    app: lab-results
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lab-results
+  template:
+    metadata:
+      labels:
+        app: lab-results
+    spec:
+      containers:
+        - name: lab-results
+          image: sugashinikaliappan/lab_results:latest
+          ports:
+            - containerPort: 6003

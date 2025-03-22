@@ -73,10 +73,19 @@ jobs:
       - name: Generate Version Tag
         run: echo "VERSION_TAG=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Build Docker Image with Versioning
+      - name: Build Docker Images for Each Module with Versioning
         run: |
-          docker build -t sugashinikaliappan/bee_hive:latest .
-          docker tag sugashinikaliappan/bee_hive:latest sugashinikaliappan/bee_hive:${{ env.VERSION_TAG }}
+          MODULES=("user_authentication" "modules/patient_enrolment" "modules/ward_report" "modules/lab_results")
+          TAGS=("user_auth" "patient_enrolment" "ward_report" "lab_results")
+          for i in "${!MODULES[@]}"; do
+          MODULE_PATH=${MODULES[$i]}
+          IMAGE_TAG=${TAGS[$i]}
+        
+          echo "🔨 Building $IMAGE_TAG from $MODULE_PATH"
+          docker build -t sugashinikaliappan/$IMAGE_TAG:latest $MODULE_PATH
+          docker tag sugashinikaliappan/$IMAGE_TAG:latest sugashinikaliappan/$IMAGE_TAG:${{ env.VERSION_TAG }}
+          done
+
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -86,6 +95,14 @@ jobs:
 
       - name: Push Docker Images to Docker Hub
         run: |
-          docker push sugashinikaliappan/bee_hive:latest
-          docker push sugashinikaliappan/bee_hive:${{ env.VERSION_TAG }}
+          MODULES=("user_authentication" "modules/patient_enrolment" "modules/ward_report" "modules/lab_results")
+          TAGS=("user_auth" "patient_enrolment" "ward_report" "lab_results")
+          for i in "${!MODULES[@]}"; do
+          IMAGE_TAG=${TAGS[$i]}
+
+          echo "📤 Pushing image: sugashinikaliappan/$IMAGE_TAG"
+          docker push sugashinikaliappan/$IMAGE_TAG:latest
+          docker push sugashinikaliappan/$IMAGE_TAG:${{ env.VERSION_TAG }}
+          done
+
 

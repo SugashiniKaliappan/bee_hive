@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient-enrolment
+  labels:
+    app: patient-enrolment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patient-enrolment
+  template:
+    metadata:
+      labels:
+        app: patient-enrolment
+    spec:
+      containers:
+        - name: patient-enrolment
+          image: sugashinikaliappan/patient_enrolment:latest
+          ports:
+            - containerPort: 6002
