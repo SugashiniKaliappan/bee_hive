@@ -9,6 +9,10 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install concurrently --save
+RUN cd user_authentication && npm install && \
+    cd ../modules/patient_enrolment && npm install && \
+    cd ../ward_report && npm install && \
+    cd ../lab_results && npm install
 
 # Copy the rest of the application files
 COPY . .
