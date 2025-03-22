@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ward-report
+  labels:
+    app: ward-report
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ward-report
+  template:
+    metadata:
+      labels:
+        app: ward-report
+    spec:
+      containers:
+        - name: ward-report
+          image: sugashinikaliappan/ward_report:latest
+          ports:
+            - containerPort: 6002
