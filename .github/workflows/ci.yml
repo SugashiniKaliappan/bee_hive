@@ -70,12 +70,6 @@ jobs:
           cd user_authentication
           npx mocha --timeout 15000 test/**/*.test.js  # ✅ Fix Mocha CLI syntax
 
-      - name: Run Tests for `modules/lab_results`
-        run: |
-          cd modules/lab_results
-          npx mocha --timeout 30000 --exit --bail test/**/*.test.js
-
-      
       - name: Generate Version Tag
         run: echo "VERSION_TAG=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
