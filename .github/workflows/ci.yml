@@ -95,6 +95,14 @@ jobs:
 
       - name: Push Docker Images to Docker Hub
         run: |
-          docker push sugashinikaliappan/bee_hive:latest
-          docker push sugashinikaliappan/bee_hive:${{ env.VERSION_TAG }}
+          MODULES=("user_authentication" "modules/patient_enrolment" "modules/ward_report" "modules/lab_results")
+          TAGS=("user_auth" "patient_enrolment" "ward_report" "lab_results")
+          for i in "${!MODULES[@]}"; do
+          IMAGE_TAG=${TAGS[$i]}
+
+          echo "📤 Pushing image: sugashinikaliappan/$IMAGE_TAG"
+          docker push sugashinikaliappan/$IMAGE_TAG:latest
+          docker push sugashinikaliappan/$IMAGE_TAG:${{ env.VERSION_TAG }}
+          done
+
 
