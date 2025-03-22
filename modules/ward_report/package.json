@@ -5,19 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' npx jest --forceExit --detectOpenHandles --runInBand"
+    "dev": "nodemon src/index.js"
   },
   "jest": {
     "testTimeout": 30000,
-    "testEnvironment": "node",
-    "transform": {},
-    "moduleFileExtensions": [
-      "js",
-      "json"
-    ]
+    "testEnvironment": "node"
   },
-  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {

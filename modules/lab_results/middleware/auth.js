@@ -1,46 +1,28 @@
-import { Lab } from "../model/schema.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-// function to record lab results
-export const recordLabResult = async (req, res) => {
-  const { patientId, result, diagnosticMachine } = req.body;
+dotenv.config();
 
-  if (!patientId) {
-    return res.status(400).json({ message: "Patient ID is required!" });
+
+//function to verify token
+export const verifyToken = (req, res, next) => {
+  let token = req.header("Authorization");
+  
+  if (!token) {
+    return res.status(403).send({ message: "No token provided!" });
   }
-
-  if (!result || !diagnosticMachine) {
-    return res
-      .status(400)
-      .json({ message: "Result and diagnostic machine are required!" });
+  
+  if (token.startsWith("Bearer ")) {
+    token = token.slice(7, token.length).trimLeft();
   }
+  console.log(token);
 
-  try {
-    const newLabResult = new Lab({
-      patientId,
-      result,
-      diagnosticMachine,
-    });
 
-    const labResult = await newLabResult.save();
-    res.status(201).json(labResult);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
-
-//function to get lab results
-export const getLabResult = async (req, res) => {
-  const patientId = req.params.id;
-
-  if (!patientId) {
-    return res.status(400).json({ message: "Patient ID is required!" });
-  }
-
-  try {
-    const labResult = await Lab.find({ patientId: patientId });
-    res.status(200).json(labResult);
-  } catch (error) {
-    //handling errors and send appropriate response
-    res.status(404).json({ message: error.message });
-  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ message: "Unauthorized!" });
+    }
+    req.user = decoded;
+    next();
+  });
 };
