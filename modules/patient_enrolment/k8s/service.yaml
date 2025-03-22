@@ -9,4 +9,4 @@ spec:
   ports:
     - port: 6002
       targetPort: 6002
-      nodePort: 61002
+      nodePort: 31002
