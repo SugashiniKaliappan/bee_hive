@@ -1,32 +1,28 @@
-import request from "supertest";
-import { app } from "../src/index.js";
+const request = require('supertest');
+const mongoose = require('mongoose');
+const app = require('../app'); 
 
-test.skip("should return a list of wards", async () => {
-
-describe("Ward Controller - Integration Tests", () => {
+// integration_tests_for_ward_controller
+describe('Ward Controller - Integration Tests', () => {
+  
   const sampleWard = {
-    wardNumber: 311,
-    wardName: "Sample Ward",
+    wardNumber: 1,
+    wardName: 'Sample Ward',
     totalBeds: 10,
     availableBeds: 5,
+    doctors: [],
+    patients: [],
   };
-
-  describe("POST /api/v1/wardadmissions", () => {
-    it("should create a new ward successfully", async () => {
+ // testing_post_request_to_create_new_ward_using_sampleWard
+  describe('POST /wards', () => {
+    it('should create a new ward successfully', async () => {
       const response = await request(app)
-        .post("/api/v1/wardadmissions")
+        .post('/wards')
         .send(sampleWard);
-
-      console.log("🔴 Debugging Response:", response.body); // ✅ Log response to check errors
-
+ 
       expect(response.status).toBe(201);
-      expect(response.body).toMatchObject({
-        wardNumber: expect.any(Number),
-        wardName: expect.any(String),
-        totalBeds: expect.any(Number),
-        availableBeds: expect.any(Number),
-      });
-    }, 25000);
+      expect(response.body).toEqual(expect.objectContaining(sampleWard));
+    });
   });
-});
+ 
 });

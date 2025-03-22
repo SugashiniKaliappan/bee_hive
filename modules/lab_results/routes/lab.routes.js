@@ -9,5 +9,3 @@ router.get("/lab/:id", verifyToken, getLabResult);
 
 
 export default router;
-
-

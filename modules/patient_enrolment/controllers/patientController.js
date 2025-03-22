@@ -64,4 +64,3 @@ exports.updatePatient = async (req, res) => {
         res.status(500).send({ message: `Error occurred while updating the patient details ${error.message}`, success: false});
     }
 };
-

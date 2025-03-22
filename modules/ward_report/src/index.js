@@ -1,26 +1,21 @@
-import express from "express";
-import { connectToDbFunc } from "./config/dbConnect.js"; // ✅ Named import
-import { router } from "./routes/ward.route.js"; // ✅ Ensure correct import
+const express = require('express');
+const connectToDbFunc = require('./config/dbConnect');
+const router = require('./routes/ward.route');
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 6001;
+const PORT = process.env.PORT || 3001;
 
-// Delay database connection
-setTimeout(() => {
+setTimeout(() => { // delaying_database_connection
     connectToDbFunc();
 }, 2000);
 
-// Setup route
-app.use("/api/v1/wardadmissions", router);
+// settingup_route_for_ward_admissions
+app.use('/api/v1/wardadmissions',router)
 
-// Export app for testing
-export { app };
-
-// Start server only when this file is run directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-    app.listen(PORT, () => {
-        console.log(`🚀 Server is running on PORT ${PORT}`);
-    });
-}
+// starting_the_server
+app.listen(PORT, () => {
+    console.log(`server is running on PORT ${PORT}`)
+})

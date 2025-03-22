@@ -1,10 +1,31 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const wardSchema = new mongoose.Schema({
-  wardNumber: { type: Number, required: true, unique: true },
-  wardName: { type: String, required: true },
-  totalBeds: { type: Number, required: true },
-  availableBeds: { type: Number, required: true },
-});
+//schema_for_wards
+const wardSchema = new mongoose.Schema(
+  {
+    wardNumber: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
+    wardName: {
+      type: String,
+      required: true,
+    },
+    totalBeds: {
+      type: Number,
+      required: true,
+    },
+    availableBeds: {
+      type: Number,
+      required: true,
+    },
 
-export const Ward = mongoose.model("Ward", wardSchema); // ✅ Named export
+  },
+
+  {
+    timestamps: true,
+  }
+);
+module.exports = mongoose.model("Ward", wardSchema);
+  
