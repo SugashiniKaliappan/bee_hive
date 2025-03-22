@@ -9,4 +9,4 @@ spec:
   ports:
     - port: 6000          # Port exposed within cluster
       targetPort: 6000    # Port your app listens on
-      nodePort: 61000     # Optional: Port exposed outside the cluster
+      nodePort: 31000     # Optional: Port exposed outside the cluster
