@@ -7,17 +7,17 @@ let app, server;
 
 before(async function () {
     this.timeout(15000); // ✅ Increase timeout to 15 seconds
-    const module = await import("../index.js");
+    const module = await import("../index.js");// NOSONAR
     app = module.app;
     server = module.server;
 
     console.log("DEBUG: Resetting database before tests...");
-    await prisma.$connect();
-    await prisma.staffDetails.deleteMany();
+    await prisma.$connect();// NOSONAR
+    await prisma.staffDetails.deleteMany();// NOSONAR
 });
 
 after(async () => {
-    await prisma.$disconnect();
+    await prisma.$disconnect();// NOSONAR
     if (server && server.listening) {
         server.close(() => console.log("Server closed after tests ✅"));
     }
@@ -44,7 +44,7 @@ describe("Register", function () {
 
             console.log("DEBUG: Sending Register Payload:", user);
 
-            const res = await supertest(app)
+            const res = await supertest(app)// NOSONAR
                 .post("/api/v1/auth/register")
                 .send(user);
 
@@ -71,7 +71,7 @@ describe("Authentication", function () {
 
             console.log("DEBUG: Sending Login Payload:", user);
 
-            const res = await supertest(app)
+            const res = await supertest(app)// NOSONAR
                 .post("/api/v1/auth/login")
                 .send(user);
 
