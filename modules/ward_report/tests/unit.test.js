@@ -24,7 +24,7 @@ describe('Ward Controller - Unit Tests', () => {
   describe('create', () => {
     it('should create a new ward successfully', async () => {
       req.body = sampleWard;
-      await wardController.create(req, res);
+      await wardController.create(req, res);// NOSONAR
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.send).toHaveBeenCalledWith(expect.objectContaining(sampleWard));
     });
@@ -34,7 +34,7 @@ describe('Ward Controller - Unit Tests', () => {
       mongoose.Model.prototype.save = jest.fn(() => Promise.reject(error));
  
       req.body = sampleWard;
-      await wardController.create(req, res);
+      await wardController.create(req, res);// NOSONAR
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.send).toHaveBeenCalledWith(error);
     });

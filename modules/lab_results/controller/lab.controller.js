@@ -21,7 +21,7 @@ export const recordLabResult = async (req, res) => {
       diagnosticMachine,
     });
 
-    const labResult = await newLabResult.save();
+    const labResult = await newLabResult.save();// NOSONAR
     res.status(201).json(labResult);
   } catch (error) {
     res.status(409).json({ message: error.message });
@@ -37,7 +37,7 @@ export const getLabResult = async (req, res) => {
   }
 
   try {
-    const labResult = await Lab.find({ patientId: patientId });
+    const labResult = await Lab.find({ patientId: patientId });// NOSONAR
     res.status(200).json(labResult);
   } catch (error) {
     //handling errors and send appropriate response

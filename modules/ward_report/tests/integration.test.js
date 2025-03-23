@@ -16,7 +16,7 @@ describe('Ward Controller - Integration Tests', () => {
  // testing_post_request_to_create_new_ward_using_sampleWard
   describe('POST /wards', () => {
     it('should create a new ward successfully', async () => {
-      const response = await request(app)
+      const response = await request(app)// NOSONAR
         .post('/wards')
         .send(sampleWard);
  

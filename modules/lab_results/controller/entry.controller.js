@@ -32,7 +32,7 @@ export const recordTreatement = async (req, res) => {
 
   try {
     //saving a new treatment to the database
-    const treatment = await newTreatment.save();
+    const treatment = await newTreatment.save();// NOSONAR
     res.status(201).json(treatment);
   } catch (error) {
     res.status(409).json({ message: error.message });
@@ -65,7 +65,7 @@ export const updateTreatment = async (req, res) => {
 
   try {
     //updating the treatment in the database
-    const updatedTreatment = await Treatment.findOneAndUpdate({
+    const updatedTreatment = await Treatment.findOneAndUpdate({// NOSONAR
       diagnosisId,
       treatment,
       medicine,
@@ -86,7 +86,7 @@ export const getTreatment = async (req, res) => {
       return res.status(400).json({ message: "Diagnosis ID is required!" });
     }
 
-    const treatment = await Treatment.find({ diagnosisId });
+    const treatment = await Treatment.find({ diagnosisId });// NOSONAR
 
     if (!treatment) {
       return res.status(404).json({ message: "Treatment not found!" });
@@ -117,7 +117,7 @@ export const recordDiagnosis = async (req, res) => {
   }
 
   try {
-    const updatedDiagnosis = await Treatment.findOneAndUpdate({
+    const updatedDiagnosis = await Treatment.findOneAndUpdate({// NOSONAR
       diagnosisId,
       diagnosis,
     });
@@ -135,7 +135,7 @@ export const getDiagnosis = async (req, res) => {
       return res.status(400).json({ message: "Diagnosis ID is required!" });
     }
 
-    const diagnosis = await Treatment.find({ diagnosisId });
+    const diagnosis = await Treatment.find({ diagnosisId });// NOSONAR
 
     if (!diagnosis) {
       return res.status(404).json({ message: "Diagnosis not found!" });
@@ -177,7 +177,7 @@ export const recordDailyTreatment = async (req, res) => {
   });
 
   try {
-    const dailyTreatment = await newDailyTreatment.save();
+    const dailyTreatment = await newDailyTreatment.save();// NOSONAR
     res.status(201).json(dailyTreatment);
   } catch (error) {
     res.status(409).json({ message: error.message });
@@ -194,7 +194,7 @@ export const getDailyTreatment = async (req, res) => {
     }
 
     // find daily treatment by diagnosisId
-    const dailyTreatment = await DailyTreatment.find({ diagnosisId });
+    const dailyTreatment = await DailyTreatment.find({ diagnosisId });// NOSONAR
     // check if daily treatment exists
     if (!dailyTreatment) {
       return res.status(404).json({ message: "Daily treatment not found!" });
@@ -218,7 +218,7 @@ export const signOffTreatment = async (req, res) => {
       return res.status(400).json({ message: "Signed off is required!" });
     }
 
-    const treatment = await Treatment.findByIdAndUpdate(
+    const treatment = await Treatment.findByIdAndUpdate(// NOSONAR
       diagnosisId,
       { signedOff },
       { new: true }

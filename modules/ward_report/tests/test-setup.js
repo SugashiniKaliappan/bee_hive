@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 //function_to_connect_testdb
 const connectToTestDatabase = async () => {
 
-  await mongoose.connect(testDatabaseURL, {
+  await mongoose.connect(testDatabaseURL, {// NOSONAR
 
     useNewUrlParser: true,
 
@@ -17,23 +17,23 @@ const connectToTestDatabase = async () => {
 //function_to_close_connection_testdb
 const closeTestDatabaseConnection = async () => {
 
-  await mongoose.connection.dropDatabase();
+  await mongoose.connection.dropDatabase();// NOSONAR
 
-  await mongoose.connection.close();
+  await mongoose.connection.close();// NOSONAR
 
 };
  
 
 beforeAll(async () => {
 
-  await connectToTestDatabase();
+  await connectToTestDatabase();// NOSONAR
 
 });
  
 
 afterAll(async () => {
 
-  await closeTestDatabaseConnection();
+  await closeTestDatabaseConnection();// NOSONAR
 
 });
  

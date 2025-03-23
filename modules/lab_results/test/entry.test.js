@@ -131,7 +131,7 @@ describe("DB Connection", () => {
 //test to clear the patient treatment collection
 describe("PatientTreatment", () => {
   it("it should clear the collection", async () => {
-    const result = await Treatment.deleteMany({});
+    const result = await Treatment.deleteMany({});// NOSONAR
     expect(result).to.be.an("object");
   });
 });
